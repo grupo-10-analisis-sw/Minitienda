@@ -360,6 +360,7 @@
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
   <Events>
     <EventHandler event="windowClosing" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowClosing"/>
@@ -381,7 +382,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="jpnUser" alignment="0" max="32767" attributes="0"/>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-              <Component id="jpnAdmin" alignment="1" pref="604" max="32767" attributes="0"/>
+              <Component id="jpnAdmin" alignment="1" max="32767" attributes="0"/>
           </Group>
           <Group type="103" rootIndex="2" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
@@ -395,7 +396,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="jpnUser" alignment="0" max="32767" attributes="0"/>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-              <Component id="jpnAdmin" alignment="1" pref="458" max="32767" attributes="0"/>
+              <Component id="jpnAdmin" alignment="1" max="32767" attributes="0"/>
           </Group>
           <Group type="103" rootIndex="2" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
@@ -1092,7 +1093,7 @@
                       <Group type="102" alignment="0" attributes="1">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jlregistrate" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="96" max="32767" attributes="0"/>
                           <Component id="jbnAceptar" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>

@@ -19,6 +19,7 @@ java.security.NoSuchProviderException
 javax.swing.GroupLayout$Group
 java.awt.Dimension
 java.lang.System
+javax.swing.ScrollPaneConstants
 java.lang.Integer
 botiga.Main$21
 botiga.Main$20
@@ -49,6 +50,7 @@ javax.swing.JButton
 java.lang.Object
 java.awt.event.MouseEvent
 javax.swing.GroupLayout$ParallelGroup
+java.lang.Short
 java.io.File
 java.awt.Toolkit
 javax.mail.MessagingException
@@ -72,6 +74,7 @@ botiga.Main$2
 java.io.IOException
 botiga.Main$1
 javax.swing.JPanel
+javax.swing.SwingConstants
 java.lang.Class
 java.awt.event.KeyEvent
 java.lang.StringBuilder
@@ -80,8 +83,10 @@ javax.swing.GroupLayout$Alignment
 java.awt.EventQueue
 java.awt.Font
 [I
-javax.swing.JLabel
+javax.swing.WindowConstants
+javax.swing.border.TitledBorder
 [C
+javax.swing.JLabel
 javax.swing.GroupLayout$SequentialGroup
 java.lang.String
 java.awt.Color

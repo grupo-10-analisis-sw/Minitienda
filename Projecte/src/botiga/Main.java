@@ -942,106 +942,92 @@ public class Main extends javax.swing.JFrame
         // TODO add your handling code here:
     }//GEN-LAST:event_jtNombreActionPerformed
 
+    // Este metodo es para el evento cuando se presiona "Aceptar" en el 
+    // formulario de alta de nuevos usuarios
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       char[] password2 = jpassword.getPassword();
-       char[] confirm2 =jconfirm_pass.getPassword();
+       
+       char[] passwordArray = jpassword.getPassword();
+       char[] confirmArray =jconfirm_pass.getPassword();
        String nombre = jtNombre.getText();
        String apellidos =jtApellidos.getText();
        String user= jtUser.getText();
        String correo = jcorreo.getText();
        int encontrado = -1;
-       String password = "";
-       for(int x = 0; x < password2.length ; x++)
-       {
-           password += password2[x];
-       }
-       String confirm = "";
-       for(int x = 0; x < confirm2.length ; x++)
-       {
-           confirm += confirm2[x];
-       }
+       
+       String passwordStr = new String(passwordArray);
+       String confirmStr = new String(confirmArray);
 
        if(!user.isEmpty())
-       {
             encontrado = Utils.buscarCliente(arrayClientes, user);
-       }
+
        // bloque de validaciones
        int formulario_ok = 0;
 
-        if(nombre.isEmpty())
-        {
-            String texto = "No has introducido tu nombre";
-            String cabecera = "Error en registro ";
-            optionPane(texto,cabecera);
-        }
-        else if(apellidos.isEmpty())
-        {
-            String texto = "No has introducido tus apellidos";
-            String cabecera = "Error en registro ";
-            optionPane(texto,cabecera);
-        }
-        else if(correo.isEmpty())
-        {
-            String texto = "No has introducido el correo";
-            String cabecera = "Error en registro ";
-            optionPane(texto,cabecera);
-        }
-        else if((!correo.contains("@"))||(!correo.contains(".")))
-        {
-            String texto = "Error en el formato del correo ( usuario@dominio.com )";
-            String cabecera = "Error en registro ";
-            optionPane(texto,cabecera);
-        }
-        else if(user.isEmpty())
-        {
-            String texto = "No has introducido el nombre de usuario";
-            String cabecera = "Error en registro ";
-            optionPane(texto,cabecera);
-        }
-        else if(encontrado != -1)
-        {
-            String texto = "El nombre de usuario ya existe";
-            String cabecera = "Error en registro ";
-            optionPane(texto,cabecera);
-        }
-       else if(password.isEmpty())
-       {
-            String texto = "No has introducido el password";
-            String cabecera = "Error en registro ";
-            optionPane(texto,cabecera);
-        }
-       else if(password.length()<5)
-       {
-            String texto = " El password ha de contener más de 4 carácteres";
-            String cabecera = "Error en registro ";
-            optionPane(texto,cabecera);
-        }
-
-        else if(confirm.isEmpty() || (password.equals(confirm) == false))
-        {
-            String texto = "La contraseña debe coincidir en los 2 campos";
-            String cabecera = "Error en registro ";
-            optionPane(texto,cabecera);
-        }
-        else
-        {
+       if(validarCampos(nombre, apellidos, correo, user, encontrado, passwordStr, confirmStr))
            formulario_ok = 1;
-        }
     
-       if(formulario_ok ==1){
-           arrayClientes = Utils.insertarCliente(arrayClientes, nombre, apellidos, password, user, correo);
+       if(formulario_ok == 1){
+           arrayClientes = Utils.insertarCliente(arrayClientes, nombre, apellidos, passwordStr, user, correo);
            if(isAdmin)
-           {
                mostrarUsuaris();
-           }
-           else
-           {
-               String texto = " Estimado sr/a "+nombre+" ,Le damos la bienvenida a nuestra tienda";
+           else {
+               String texto = " Estimado sr/a " + nombre + " ,Le damos la bienvenida a nuestra tienda";
                JOptionPane.showMessageDialog(new JFrame(), texto, "Los datos han sido registrados correctamente ", JOptionPane.INFORMATION_MESSAGE);
            }
            jdRegistro.setVisible(false);
        }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    /**
+     * @return Devuelve true si todos los campos son correctos
+     */
+    private boolean validarCampos(String nombre, String apellidos, String correo, String user, int encontrado, String password, String confirm) {
+        boolean res = false;
+        
+        // Podria devolver directamente las condiciones concatenadas
+        // pero necesito mostrar un msj por cada una, asi que no
+        if(nombre.isEmpty())
+            optionPane("No has introducido tu nombre", "Error en registro");
+        else if(apellidos.isEmpty())
+            optionPane("No has introducido tus apellidos", "Error en registro");
+        else if(correo.isEmpty())
+            optionPane("No has introducido el correo", "Error en registro");
+        else if(!correoValido(correo))
+            optionPane("Error en el formato del correo ( usuario@dominio.com )" , "Error en registro");
+        else if(user.isEmpty())
+            optionPane("No has introducido el nombre de usuario", "Error en registro");
+        else if(encontrado != -1)
+            optionPane("El nombre de usuario ya existe", "Error en registro");
+        else if(password.isEmpty())
+            optionPane("No has introducido el password", "Error en registro");
+        else if(password.length()<5)
+            optionPane("El password ha de contener más de 4 carácteres", "Error en registro");
+        else if(confirm.isEmpty() || !password.equals(confirm))
+            optionPane("La contraseña debe coincidir en los 2 campos", "Error en registro");
+        else
+            res = true;
+        
+        return res;
+    }
+    
+    /**
+     * 
+     * @param correo - Correo a validar
+     * @return Verdadero si el correo es valido
+     */
+    private boolean correoValido(String correo) {
+        boolean contieneArroba = correo.contains("@");
+        boolean tienePuntoLuegoArroba;
+        
+        if(contieneArroba) {
+            tienePuntoLuegoArroba = correo.substring(correo.indexOf('@'), correo.length()).contains(".");
+            // Si los 2 son verdaderos entonces el correo es valido
+            return contieneArroba && tienePuntoLuegoArroba;
+        }
+        else 
+            return false;
+        
+    }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
@@ -1480,6 +1466,11 @@ public class Main extends javax.swing.JFrame
         jlbNumProd.setText("En este momento tenemos "+cont+" producto/s a vuestra disposición.");
     }
 
+    /**
+     * 
+     * @param texto - Texto que ira en el cuerpo del dialogo de mensaje
+     * @param cabecera - Texto de cabecera del dialogo de mensaje
+     */
     private void optionPane(String texto, String cabecera) {
         JOptionPane.showMessageDialog(new JFrame(), texto, cabecera, JOptionPane.WARNING_MESSAGE);
     }
